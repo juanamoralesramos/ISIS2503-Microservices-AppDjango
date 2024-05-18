@@ -6,8 +6,6 @@ WORKDIR /app
 COPY . /app
 
 # Set the environment variables
-ENV MEASUREMENTS_DB_HOST 10.128.0.2
-ENV VARIABLES_HOST 10.128.0.3
 ENV PLACES_HOST 10.128.0.3
 
 # Install Python dependencies
