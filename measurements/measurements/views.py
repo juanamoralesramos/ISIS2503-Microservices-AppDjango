@@ -20,7 +20,7 @@ def check_place(data):
     r = requests.get(settings.PATH_PLA, headers={"Accept":"application/json"})
     places = r.json()
     for place in places:
-        if data["place"] == place["id"]:
+        if data["place"] == place["name"]:
             return True
     return False
 
@@ -33,7 +33,7 @@ def MeasurementCreate(request):
     if request.method == 'POST':
         data = request.body.decode('utf-8')
         data_json = json.loads(data)
-        if check_variable(data_json) == True:
+        if check_variable(data_json) == True and check_place(data_json) == True:
             measurement = Measurement()
             measurement.variable = data_json['variable']
             measurement.value = data_json['value']
@@ -50,7 +50,7 @@ def MeasurementsCreate(request):
         data_json = json.loads(data)
         measurement_list = []
         for measurement in data_json:
-                    if check_variable(measurement) == True:
+                    if check_variable(measurement) == True and check_place(measurement) == True:
                         db_measurement = Measurement()
                         db_measurement.variable = measurement['variable']
                         db_measurement.value = measurement['value']
